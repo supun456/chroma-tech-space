@@ -1,12 +1,41 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import HeroSection from '@/components/portfolio/HeroSection';
+import AboutSection from '@/components/portfolio/AboutSection';
+import ProjectsSection from '@/components/portfolio/ProjectsSection';
+import ContactSection from '@/components/portfolio/ContactSection';
+import Navigation from '@/components/portfolio/Navigation';
+import ParticleBackground from '@/components/portfolio/ParticleBackground';
+import { useTheme } from '@/hooks/useTheme';
 
 const Index = () => {
+  const [mounted, setMounted] = useState(false);
+  const { theme, toggleTheme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="relative min-h-screen bg-black text-gray-100 overflow-x-hidden">
+      <ParticleBackground />
+      <Navigation theme={theme} toggleTheme={toggleTheme} />
+      
+      <main className="relative z-10">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <HeroSection />
+          <AboutSection />
+          <ProjectsSection />
+          <ContactSection />
+        </motion.div>
+      </main>
     </div>
   );
 };

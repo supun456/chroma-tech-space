@@ -1,0 +1,68 @@
+
+import { motion } from 'framer-motion';
+import { Card, CardContent } from '@/components/ui/card';
+import SkillsChart from './SkillsChart';
+import Timeline from './Timeline';
+
+const AboutSection = () => {
+  return (
+    <section id="about" className="py-20 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
+              About Me
+            </span>
+          </h2>
+          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+            Passionate developer with 5+ years of experience building scalable web applications
+            and delivering exceptional user experiences.
+          </p>
+        </motion.div>
+
+        <div className="grid lg:grid-cols-2 gap-12 items-start">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <Card className="bg-gray-900/50 backdrop-blur-sm border border-cyan-500/20 hover:border-cyan-500/40 transition-all duration-300">
+              <CardContent className="p-8">
+                <h3 className="text-2xl font-semibold text-cyan-400 mb-6">My Journey</h3>
+                <p className="text-gray-300 text-lg leading-relaxed mb-6">
+                  Started my journey in web development with a passion for creating digital solutions
+                  that make a difference. I specialize in modern JavaScript frameworks, cloud architecture,
+                  and building scalable applications that serve millions of users.
+                </p>
+                <p className="text-gray-300 text-lg leading-relaxed">
+                  When I'm not coding, you'll find me exploring new technologies, contributing to open
+                  source projects, or sharing knowledge with the developer community.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Timeline />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <SkillsChart />
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default AboutSection;
