@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
@@ -20,8 +19,8 @@ const HeroSection = () => {
   }, [currentIndex, fullText]);
 
   const socialLinks = [
-    { icon: Github, href: "https://github.com", label: "GitHub" },
-    { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
+    { icon: Github, href: "https://github.com/supun456", label: "GitHub" },
+    { icon: Linkedin, href: "https://www.linkedin.com/in/supun-perera-64423a212/", label: "LinkedIn" },
     { icon: Mail, href: "mailto:supun6623@gmail.com", label: "Email" },
   ];
 

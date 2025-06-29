@@ -5,8 +5,8 @@ export const useTheme = () => {
   const [theme, setTheme] = useState<'dark' | 'light'>(() => {
     if (typeof window !== 'undefined') {
       const stored = localStorage.getItem('theme');
-      if (stored === 'light' || stored === 'dark') {
-        return stored;
+      if (stored && (stored === 'light' || stored === 'dark')) {
+        return stored as 'light' | 'dark';
       }
       // Check system preference
       return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
@@ -15,7 +15,9 @@ export const useTheme = () => {
   });
 
   useEffect(() => {
-    const root = window.document.documentElement;
+    if (typeof window === 'undefined') return;
+
+    const root = document.documentElement;
     
     // Remove both classes first
     root.classList.remove('light', 'dark');
@@ -26,11 +28,13 @@ export const useTheme = () => {
     // Store in localStorage
     localStorage.setItem('theme', theme);
     
-    // Update the background color immediately
+    // Apply immediate styling
     if (theme === 'light') {
-      document.body.style.backgroundColor = 'white';
+      document.body.style.backgroundColor = '#ffffff';
+      document.body.style.color = '#1f2937';
     } else {
-      document.body.style.backgroundColor = 'black';
+      document.body.style.backgroundColor = '#000000';
+      document.body.style.color = '#f3f4f6';
     }
   }, [theme]);
 
