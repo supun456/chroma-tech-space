@@ -44,19 +44,19 @@ const ContactSection = () => {
     {
       icon: Mail,
       label: 'Email',
-      value: 'john.doe@example.com',
-      href: 'mailto:john.doe@example.com'
+      value: 'supun6623@gmail.com',
+      href: 'mailto:supun6623@gmail.com'
     },
     {
       icon: Phone,
       label: 'Phone',
-      value: '+1 (555) 123-4567',
-      href: 'tel:+15551234567'
+      value: '+94 77 995 9466',
+      href: 'tel:+94779959466'
     },
     {
       icon: MapPin,
       label: 'Location',
-      value: 'San Francisco, CA',
+      value: 'Welmilla, Bandaragama, Sri Lanka',
       href: null
     }
   ];
@@ -78,7 +78,7 @@ const ContactSection = () => {
           </h2>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto">
             Have a project in mind? I'd love to hear about it. Send me a message
-            and let's discuss how we can bring your ideas to life.
+            and let's discuss how we can bring your data-driven ideas to life.
           </p>
         </motion.div>
 
@@ -223,11 +223,11 @@ const ContactSection = () => {
                 </h3>
                 <div className="space-y-3">
                   {[
-                    'Fast turnaround times',
+                    'Data-driven decision making',
                     'Clean, maintainable code',
-                    'Responsive communication',
-                    'Modern technologies',
-                    'Post-launch support'
+                    'Strong analytical mindset',
+                    'Team leadership experience',
+                    'Process optimization focus'
                   ].map((feature, index) => (
                     <div key={feature} className="flex items-center gap-3">
                       <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0" />

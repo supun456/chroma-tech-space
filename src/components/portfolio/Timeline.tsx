@@ -5,28 +5,28 @@ import { Card, CardContent } from '@/components/ui/card';
 const Timeline = () => {
   const experiences = [
     {
-      year: '2024',
-      title: 'Senior Full Stack Developer',
-      company: 'Tech Innovation Inc.',
-      description: 'Leading development of cloud-native applications using React, Node.js, and AWS.',
+      year: '2024 - Present',
+      title: 'Associate Software Engineer',
+      company: 'Velou, Engineering Center',
+      description: 'Transitioned into software engineering role, contributing to backend development projects and leveraging data expertise to build efficient systems.',
     },
     {
-      year: '2022',
-      title: 'Full Stack Developer',
-      company: 'Digital Solutions Co.',
-      description: 'Built scalable web applications serving 100K+ users with React and Python.',
+      year: '2023 - 2024',
+      title: 'Lead - Data Excellence Team',
+      company: 'Velou, Engineering Center',
+      description: 'Led the Data Excellence team, overseeing data strategy and governance initiatives. Streamlined data workflows and ensured data integrity across business functions.',
     },
     {
-      year: '2020',
-      title: 'Frontend Developer',
-      company: 'StartupX',
-      description: 'Developed responsive web interfaces and improved user experience by 40%.',
+      year: '2022 - 2023',
+      title: 'Senior Data Excellence Analyst',
+      company: 'Velou, Engineering Center',
+      description: 'Trained cross-functional teams on data best practices, championed data literacy programs, and created forecasting models that improved prediction accuracy by 35%.',
     },
     {
-      year: '2019',
-      title: 'Junior Developer',
-      company: 'WebDev Agency',
-      description: 'Started my professional journey building websites and learning modern frameworks.',
+      year: '2021 - 2022',
+      title: 'Data Excellence Analyst',
+      company: 'Velou, Engineering Center',
+      description: 'Transformed complex data into actionable insights, supporting faster decisions and utilizing advanced analytics tools to improve data interpretation quality.',
     },
   ];
 

@@ -4,12 +4,14 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 const SkillsChart = () => {
   const skills = [
-    { name: 'React/Next.js', level: 95, color: 'from-blue-500 to-cyan-500' },
-    { name: 'TypeScript', level: 90, color: 'from-blue-600 to-purple-600' },
-    { name: 'Node.js', level: 85, color: 'from-green-500 to-emerald-500' },
-    { name: 'Python', level: 80, color: 'from-yellow-500 to-orange-500' },
-    { name: 'AWS/Cloud', level: 85, color: 'from-orange-500 to-red-500' },
-    { name: 'Docker/K8s', level: 75, color: 'from-purple-500 to-pink-500' },
+    { name: 'Data Analysis', level: 95, color: 'from-blue-500 to-cyan-500' },
+    { name: 'MongoDB', level: 85, color: 'from-green-500 to-emerald-500' },
+    { name: 'Backend Development', level: 80, color: 'from-purple-500 to-pink-500' },
+    { name: 'Forecasting Models', level: 90, color: 'from-yellow-500 to-orange-500' },
+    { name: 'Data Governance', level: 85, color: 'from-orange-500 to-red-500' },
+    { name: 'Team Leadership', level: 85, color: 'from-blue-600 to-purple-600' },
+    { name: 'Process Optimization', level: 80, color: 'from-cyan-500 to-blue-500' },
+    { name: 'MS Office', level: 90, color: 'from-indigo-500 to-purple-500' },
   ];
 
   return (

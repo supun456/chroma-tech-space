@@ -6,7 +6,7 @@ import { Download, Github, Linkedin, Mail } from 'lucide-react';
 
 const HeroSection = () => {
   const [text, setText] = useState('');
-  const fullText = "I turn code into products.";
+  const fullText = "I transform data into actionable strategies.";
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -20,9 +20,9 @@ const HeroSection = () => {
   }, [currentIndex, fullText]);
 
   const socialLinks = [
-    { icon: Github, href: "#", label: "GitHub" },
-    { icon: Linkedin, href: "#", label: "LinkedIn" },
-    { icon: Mail, href: "mailto:your.email@example.com", label: "Email" },
+    { icon: Github, href: "https://github.com", label: "GitHub" },
+    { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
+    { icon: Mail, href: "mailto:supun6623@gmail.com", label: "Email" },
   ];
 
   return (
@@ -41,7 +41,7 @@ const HeroSection = () => {
             className="text-5xl md:text-7xl font-bold"
           >
             <span className="bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-              John Doe
+              Supun Perera
             </span>
           </motion.h1>
 
@@ -62,8 +62,8 @@ const HeroSection = () => {
             transition={{ delay: 1, duration: 0.8 }}
             className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto"
           >
-            Full-stack developer crafting digital experiences with modern technologies.
-            Passionate about clean code, innovative solutions, and user-centric design.
+            Associate Software Engineer with 4+ years of experience in data analytics and backend development.
+            Specialized in transforming complex data into scalable tech solutions.
           </motion.p>
 
           <motion.div

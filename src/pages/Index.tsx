@@ -20,7 +20,11 @@ const Index = () => {
   if (!mounted) return null;
 
   return (
-    <div className="relative min-h-screen bg-black text-gray-100 overflow-x-hidden">
+    <div className={`relative min-h-screen transition-colors duration-300 overflow-x-hidden ${
+      theme === 'dark' 
+        ? 'bg-black text-gray-100' 
+        : 'bg-white text-gray-900'
+    }`}>
       <ParticleBackground />
       <Navigation theme={theme} toggleTheme={toggleTheme} />
       

@@ -21,8 +21,8 @@ const AboutSection = () => {
             </span>
           </h2>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-            Passionate developer with 5+ years of experience building scalable web applications
-            and delivering exceptional user experiences.
+            Results-driven data and software professional with over 4 years of experience at Velou,
+            transitioning from Data Excellence Analyst to Associate Software Engineer.
           </p>
         </motion.div>
 
@@ -37,13 +37,14 @@ const AboutSection = () => {
               <CardContent className="p-8">
                 <h3 className="text-2xl font-semibold text-cyan-400 mb-6">My Journey</h3>
                 <p className="text-gray-300 text-lg leading-relaxed mb-6">
-                  Started my journey in web development with a passion for creating digital solutions
-                  that make a difference. I specialize in modern JavaScript frameworks, cloud architecture,
-                  and building scalable applications that serve millions of users.
+                  Started as a Data Excellence Analyst, skilled in data analytics, team leadership, 
+                  and backend development. Successfully led data literacy initiatives, enhanced team 
+                  capabilities, and improved forecasting accuracy by 35%.
                 </p>
                 <p className="text-gray-300 text-lg leading-relaxed">
-                  When I'm not coding, you'll find me exploring new technologies, contributing to open
-                  source projects, or sharing knowledge with the developer community.
+                  Recently transitioned into software engineering, leveraging a strong foundation 
+                  in data modeling and analytics to build scalable and efficient tech solutions. 
+                  Currently pursuing Bachelor of Software Engineering Honours at Open University.
                 </p>
               </CardContent>
             </Card>
