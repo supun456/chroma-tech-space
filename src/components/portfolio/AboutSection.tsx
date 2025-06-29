@@ -27,7 +27,7 @@ const AboutSection = () => {
       y: 0,
       rotateX: 0,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100,
         damping: 15,
         duration: 0.8
@@ -100,9 +100,7 @@ const AboutSection = () => {
                     viewport={{ once: true }}
                     transition={{ delay: 0.2, duration: 0.6 }}
                   >
-                    Started as a Data Excellence Analyst, skilled in data analytics, team leadership, 
-                    and backend development. Successfully led data literacy initiatives, enhanced team 
-                    capabilities, and improved forecasting accuracy by 35%.
+                    I began my career as a Data Excellence Analyst with a passion for turning complex datasets into meaningful insights. Over the years, I've developed expertise in data analytics, team leadership, and backend development, successfully leading initiatives that improved forecasting accuracy by 35%.
                   </motion.p>
                   <motion.p 
                     className="text-gray-300 text-lg leading-relaxed"
@@ -111,9 +109,7 @@ const AboutSection = () => {
                     viewport={{ once: true }}
                     transition={{ delay: 0.4, duration: 0.6 }}
                   >
-                    Recently transitioned into software engineering, leveraging a strong foundation 
-                    in data modeling and analytics to build scalable and efficient tech solutions. 
-                    Currently pursuing Bachelor of Software Engineering Honours at Open University.
+                    Recently transitioned into software engineering, where I leverage my strong foundation in data modeling and analytics to build scalable and efficient tech solutions. Currently pursuing a Bachelor of Software Engineering Honours at Open University to further enhance my technical capabilities.
                   </motion.p>
                 </CardContent>
               </Card>
