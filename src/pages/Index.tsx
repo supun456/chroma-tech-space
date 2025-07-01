@@ -7,12 +7,11 @@ import ProjectsSection from '@/components/portfolio/ProjectsSection';
 import ContactSection from '@/components/portfolio/ContactSection';
 import Navigation from '@/components/portfolio/Navigation';
 import ParticleBackground from '@/components/portfolio/ParticleBackground';
-import JarvisTerminal from '@/components/portfolio/JarvisTerminal';
 import { useTheme } from '@/hooks/useTheme';
 
 const Index = () => {
   const [mounted, setMounted] = useState(false);
-  const { theme, toggleTheme } = useTheme();
+  const { theme } = useTheme();
 
   useEffect(() => {
     setMounted(true);
@@ -40,6 +39,21 @@ const Index = () => {
     type: "tween" as const,
     ease: [0.23, 1, 0.32, 1] as const,
     duration: 0.6
+  };
+
+  const getThemeBackground = () => {
+    switch (theme) {
+      case 'light':
+        return 'bg-white text-gray-900';
+      case 'cyberpunk':
+        return 'bg-gradient-to-br from-black via-purple-900 to-black text-cyan-100';
+      case 'ocean':
+        return 'bg-gradient-to-br from-blue-900 via-blue-800 to-black text-blue-100';
+      case 'forest':
+        return 'bg-gradient-to-br from-green-900 via-green-800 to-black text-green-100';
+      default:
+        return 'bg-gradient-to-br from-black via-slate-900 to-black text-gray-100';
+    }
   };
 
   if (!mounted) {
@@ -73,14 +87,10 @@ const Index = () => {
         exit="out"
         variants={pageVariants}
         transition={pageTransition}
-        className={`relative min-h-screen transition-colors duration-500 overflow-x-hidden ${
-          theme === 'dark' 
-            ? 'bg-gradient-to-br from-black via-slate-900 to-black text-gray-100' 
-            : 'bg-white text-gray-900'
-        }`}
+        className={`relative min-h-screen transition-colors duration-500 overflow-x-hidden ${getThemeBackground()}`}
       >
         <ParticleBackground />
-        <Navigation theme={theme} toggleTheme={toggleTheme} />
+        <Navigation />
         
         <main className="relative z-10">
           <motion.div
@@ -95,9 +105,6 @@ const Index = () => {
           </motion.div>
         </main>
 
-        {/* Jarvis Terminal */}
-        <JarvisTerminal />
-
         {/* Scroll Progress Indicator */}
         <motion.div
           className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-500 to-purple-600 origin-left z-50"
@@ -106,7 +113,7 @@ const Index = () => {
           transition={{ duration: 0.3 }}
         />
 
-        {/* Jarvis-style corner accents */}
+        {/* Corner accents */}
         <div className="fixed top-4 left-4 w-8 h-8 border-l-2 border-t-2 border-cyan-400/50 z-40" />
         <div className="fixed top-4 right-4 w-8 h-8 border-r-2 border-t-2 border-cyan-400/50 z-40" />
         <div className="fixed bottom-4 left-4 w-8 h-8 border-l-2 border-b-2 border-cyan-400/50 z-40" />
