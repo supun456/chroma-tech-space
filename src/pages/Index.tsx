@@ -56,6 +56,21 @@ const Index = () => {
     }
   };
 
+  const getAccentColor = () => {
+    switch (theme) {
+      case 'light':
+        return 'rgba(59, 130, 246, 0.3)';
+      case 'cyberpunk':
+        return 'rgba(0, 255, 255, 0.3)';
+      case 'ocean':
+        return 'rgba(0, 191, 255, 0.3)';
+      case 'forest':
+        return 'rgba(50, 205, 50, 0.3)';
+      default:
+        return 'rgba(34, 211, 238, 0.3)';
+    }
+  };
+
   if (!mounted) {
     return (
       <div className="min-h-screen bg-black flex items-center justify-center">
@@ -108,16 +123,35 @@ const Index = () => {
         {/* Scroll Progress Indicator */}
         <motion.div
           className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-500 to-purple-600 origin-left z-50"
-          style={{ scaleX: 0 }}
+          style={{ 
+            scaleX: 0,
+            background: theme === 'cyberpunk' ? 'linear-gradient(to right, #00ffff, #ff00ff)' :
+                       theme === 'ocean' ? 'linear-gradient(to right, #00bfff, #4682b4)' :
+                       theme === 'forest' ? 'linear-gradient(to right, #32cd32, #228b22)' :
+                       theme === 'light' ? 'linear-gradient(to right, #3b82f6, #8b5cf6)' :
+                       'linear-gradient(to right, #22d3ee, #8b5cf6)'
+          }}
           whileInView={{ scaleX: 1 }}
           transition={{ duration: 0.3 }}
         />
 
         {/* Corner accents */}
-        <div className="fixed top-4 left-4 w-8 h-8 border-l-2 border-t-2 border-cyan-400/50 z-40" />
-        <div className="fixed top-4 right-4 w-8 h-8 border-r-2 border-t-2 border-cyan-400/50 z-40" />
-        <div className="fixed bottom-4 left-4 w-8 h-8 border-l-2 border-b-2 border-cyan-400/50 z-40" />
-        <div className="fixed bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 border-cyan-400/50 z-40" />
+        <div 
+          className="fixed top-4 left-4 w-8 h-8 border-l-2 border-t-2 z-40" 
+          style={{ borderColor: getAccentColor() }}
+        />
+        <div 
+          className="fixed top-4 right-4 w-8 h-8 border-r-2 border-t-2 z-40"
+          style={{ borderColor: getAccentColor() }}
+        />
+        <div 
+          className="fixed bottom-4 left-4 w-8 h-8 border-l-2 border-b-2 z-40"
+          style={{ borderColor: getAccentColor() }}
+        />
+        <div 
+          className="fixed bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 z-40"
+          style={{ borderColor: getAccentColor() }}
+        />
       </motion.div>
     </AnimatePresence>
   );

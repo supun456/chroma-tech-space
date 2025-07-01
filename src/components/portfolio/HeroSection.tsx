@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Download, Github, Linkedin, Mail, Mic, Power } from 'lucide-react';
+import { Download, Github, Linkedin, Mail } from 'lucide-react';
 
 const HeroSection = () => {
   const [text, setText] = useState('');
@@ -11,12 +11,10 @@ const HeroSection = () => {
   const [isDeleting, setIsDeleting] = useState(false);
 
   const phrases = [
-    "Initializing SupunAI...",
-    "I transform data into actionable strategies.",
-    "Deploying full-stack solutions.",
-    "Building intelligent UIs.",
-    "Processing complex algorithms...",
-    "Ready for mission deployment."
+    "Full-Stack Developer",
+    "Data Analytics Expert",
+    "Backend Solutions Architect",
+    "Tech Problem Solver"
   ];
 
   useEffect(() => {
@@ -78,7 +76,7 @@ const HeroSection = () => {
 
   return (
     <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden">
-      {/* Jarvis-style grid overlay */}
+      {/* Grid overlay */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(34,211,238,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(34,211,238,0.1)_1px,transparent_1px)] bg-[size:50px_50px]" />
       
       {/* Scanning line effect */}
@@ -102,19 +100,6 @@ const HeroSection = () => {
           animate="visible"
           className="space-y-8"
         >
-          {/* Status indicator */}
-          <motion.div
-            variants={itemVariants}
-            className="flex items-center justify-center gap-3 mb-8"
-          >
-            <motion.div
-              animate={{ scale: [1, 1.2, 1] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="w-3 h-3 bg-green-400 rounded-full shadow-[0_0_10px_rgba(34,197,94,0.8)]"
-            />
-            <span className="text-green-400 text-sm font-mono">SYSTEM ONLINE</span>
-          </motion.div>
-
           <motion.h1
             variants={itemVariants}
             whileHover={{ 
@@ -138,7 +123,7 @@ const HeroSection = () => {
                 <div className="w-3 h-3 bg-red-500 rounded-full"></div>
                 <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
                 <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                <span className="text-gray-400 text-sm ml-2">SupunAI Terminal</span>
+                <span className="text-gray-400 text-sm ml-2">Portfolio Terminal</span>
               </div>
               <div className="text-xl md:text-2xl text-green-400">
                 <span className="text-cyan-400">$ </span>
@@ -166,25 +151,6 @@ const HeroSection = () => {
             variants={itemVariants}
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
-            {/* Voice Command Button */}
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Button
-                size="lg"
-                className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-semibold px-8 py-3 rounded-lg shadow-lg hover:shadow-green-500/25 transition-all duration-300"
-              >
-                <motion.div
-                  animate={{ scale: [1, 1.2, 1] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                >
-                  <Mic className="w-5 h-5 mr-2" />
-                </motion.div>
-                Voice Command
-              </Button>
-            </motion.div>
-
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -229,17 +195,6 @@ const HeroSection = () => {
                   <span className="sr-only">{link.label}</span>
                 </motion.a>
               ))}
-            </div>
-          </motion.div>
-
-          {/* AI Assistant Status */}
-          <motion.div
-            variants={itemVariants}
-            className="flex items-center justify-center gap-4 mt-8"
-          >
-            <div className="flex items-center gap-2 px-4 py-2 bg-black/50 backdrop-blur-sm border border-cyan-500/30 rounded-full">
-              <Power className="w-4 h-4 text-green-400" />
-              <span className="text-sm text-gray-300">AI Assistant Ready</span>
             </div>
           </motion.div>
         </motion.div>
