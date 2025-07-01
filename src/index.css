@@ -1,6 +1,14 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Import theme-specific fonts */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Orbitron:wght@400;700&display=swap');
 
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
 All colors MUST be HSL.
@@ -39,19 +47,12 @@ All colors MUST be HSL.
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
@@ -102,4 +103,83 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Custom animations for theme effects */
+@keyframes scan {
+  0% { transform: translateY(-100vh); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes glitch {
+  0%, 100% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+}
+
+@keyframes matrix-rain {
+  0% { transform: translateY(-100%); opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 5px var(--theme-glow); }
+  50% { box-shadow: 0 0 20px var(--theme-glow), 0 0 30px var(--theme-glow); }
+}
+
+/* Theme-specific styles */
+.cyberpunk {
+  --animation-speed: 0.3s;
+}
+
+.matrix {
+  --animation-speed: 0.2s;
+}
+
+.quantum {
+  --animation-speed: 0.4s;
+}
+
+.terminal {
+  --animation-speed: 0.1s;
+}
+
+.tron {
+  --animation-speed: 0.5s;
+}
+
+/* Utility classes for theme effects */
+.theme-glow {
+  box-shadow: 0 0 10px var(--theme-glow);
+}
+
+.theme-glow-strong {
+  box-shadow: 0 0 20px var(--theme-glow), 0 0 40px var(--theme-glow);
+}
+
+.theme-border-glow {
+  border: 1px solid var(--theme-accent-primary);
+  box-shadow: inset 0 0 10px var(--theme-glow);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--theme-bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--theme-accent-primary);
+  border-radius: 4px;
+  box-shadow: 0 0 5px var(--theme-glow);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--theme-accent-secondary);
+  box-shadow: 0 0 10px var(--theme-glow);
 }

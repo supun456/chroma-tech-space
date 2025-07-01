@@ -1,19 +1,17 @@
 
 import { useState, useEffect } from 'react';
 
-export type Theme = 'dark' | 'light' | 'cyberpunk' | 'ocean' | 'forest';
+export type Theme = 'cyberpunk' | 'matrix' | 'quantum' | 'terminal' | 'tron';
 
 export const useTheme = () => {
   const [theme, setTheme] = useState<Theme>(() => {
     if (typeof window !== 'undefined') {
-      const stored = localStorage.getItem('theme') as Theme;
-      if (stored && ['dark', 'light', 'cyberpunk', 'ocean', 'forest'].includes(stored)) {
+      const stored = localStorage.getItem('portfolio-theme') as Theme;
+      if (stored && ['cyberpunk', 'matrix', 'quantum', 'terminal', 'tron'].includes(stored)) {
         return stored;
       }
-      // Check system preference
-      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     }
-    return 'dark';
+    return 'cyberpunk';
   });
 
   useEffect(() => {
@@ -21,123 +19,159 @@ export const useTheme = () => {
 
     const root = document.documentElement;
     
-    // Remove all theme classes first
-    root.classList.remove('light', 'dark', 'cyberpunk', 'ocean', 'forest');
-    
-    // Add the current theme class
+    // Remove all theme classes
+    root.classList.remove('cyberpunk', 'matrix', 'quantum', 'terminal', 'tron');
     root.classList.add(theme);
     
     // Store in localStorage
-    localStorage.setItem('theme', theme);
+    localStorage.setItem('portfolio-theme', theme);
     
-    // Apply comprehensive theme-specific styles
+    // Theme-specific CSS variables
     const themeStyles = {
-      light: { 
-        '--background': '0 0% 100%',
-        '--foreground': '222.2 84% 4.9%',
-        '--card': '0 0% 100%',
-        '--card-foreground': '222.2 84% 4.9%',
-        '--primary': '221.2 83.2% 53.3%',
-        '--primary-foreground': '210 40% 98%',
-        '--secondary': '210 40% 96.1%',
-        '--secondary-foreground': '222.2 47.4% 11.2%',
-        '--accent': '210 40% 96.1%',
-        '--accent-foreground': '222.2 47.4% 11.2%',
-        '--border': '214.3 31.8% 91.4%',
-        '--theme-primary': '#3b82f6',
-        '--theme-secondary': '#8b5cf6',
-        '--theme-bg': '#ffffff',
-        '--theme-text': '#1f2937'
+      cyberpunk: {
+        '--theme-bg-primary': '#0a0a0a',
+        '--theme-bg-secondary': '#1a0826',
+        '--theme-bg-tertiary': '#0f0514',
+        '--theme-accent-primary': '#00ffff',
+        '--theme-accent-secondary': '#7f5af0',
+        '--theme-accent-tertiary': '#ff00ff',
+        '--theme-text-primary': '#ffffff',
+        '--theme-text-secondary': '#b4b4b8',
+        '--theme-border': 'rgba(0, 255, 255, 0.3)',
+        '--theme-glow': 'rgba(0, 255, 255, 0.5)',
+        '--font-family': '"Orbitron", "Courier New", monospace'
       },
-      dark: { 
-        '--background': '222.2 84% 4.9%',
-        '--foreground': '210 40% 98%',
-        '--card': '222.2 84% 4.9%',
-        '--card-foreground': '210 40% 98%',
-        '--primary': '217.2 91.2% 59.8%',
-        '--primary-foreground': '222.2 47.4% 11.2%',
-        '--secondary': '217.2 32.6% 17.5%',
-        '--secondary-foreground': '210 40% 98%',
-        '--accent': '217.2 32.6% 17.5%',
-        '--accent-foreground': '210 40% 98%',
-        '--border': '217.2 32.6% 17.5%',
-        '--theme-primary': '#22d3ee',
-        '--theme-secondary': '#8b5cf6',
-        '--theme-bg': '#000000',
-        '--theme-text': '#f3f4f6'
+      matrix: {
+        '--theme-bg-primary': '#000000',
+        '--theme-bg-secondary': '#001100',
+        '--theme-bg-tertiary': '#002200',
+        '--theme-accent-primary': '#00ff00',
+        '--theme-accent-secondary': '#00cc00',
+        '--theme-accent-tertiary': '#008800',
+        '--theme-text-primary': '#00ff00',
+        '--theme-text-secondary': '#00cc00',
+        '--theme-border': 'rgba(0, 255, 0, 0.3)',
+        '--theme-glow': 'rgba(0, 255, 0, 0.5)',
+        '--font-family': '"Share Tech Mono", "Courier New", monospace'
       },
-      cyberpunk: { 
-        '--background': '0 0% 4%',
-        '--foreground': '180 100% 50%',
-        '--card': '0 0% 4%',
-        '--card-foreground': '180 100% 50%',
-        '--primary': '180 100% 50%',
-        '--primary-foreground': '0 0% 4%',
-        '--secondary': '300 100% 50%',
-        '--secondary-foreground': '0 0% 4%',
-        '--accent': '180 100% 50%',
-        '--accent-foreground': '0 0% 4%',
-        '--border': '180 100% 25%',
-        '--theme-primary': '#00ffff',
-        '--theme-secondary': '#ff00ff',
-        '--theme-bg': '#0a0a0a',
-        '--theme-text': '#00ffff'
+      quantum: {
+        '--theme-bg-primary': '#0d1117',
+        '--theme-bg-secondary': '#161b22',
+        '--theme-bg-tertiary': '#21262d',
+        '--theme-accent-primary': '#ff66c4',
+        '--theme-accent-secondary': '#22d3ee',
+        '--theme-accent-tertiary': '#a855f7',
+        '--theme-text-primary': '#f0f6fc',
+        '--theme-text-secondary': '#8b949e',
+        '--theme-border': 'rgba(255, 102, 196, 0.3)',
+        '--theme-glow': 'rgba(255, 102, 196, 0.5)',
+        '--font-family': '"Inter", "SF Pro Display", sans-serif'
       },
-      ocean: { 
-        '--background': '210 100% 7%',
-        '--foreground': '195 53% 79%',
-        '--card': '210 100% 7%',
-        '--card-foreground': '195 53% 79%',
-        '--primary': '195 100% 50%',
-        '--primary-foreground': '210 100% 7%',
-        '--secondary': '210 29% 29%',
-        '--secondary-foreground': '195 53% 79%',
-        '--accent': '195 100% 50%',
-        '--accent-foreground': '210 100% 7%',
-        '--border': '210 29% 29%',
-        '--theme-primary': '#00bfff',
-        '--theme-secondary': '#4682b4',
-        '--theme-bg': '#001122',
-        '--theme-text': '#87ceeb'
+      terminal: {
+        '--theme-bg-primary': '#000000',
+        '--theme-bg-secondary': '#0a0a0a',
+        '--theme-bg-tertiary': '#1a1a1a',
+        '--theme-accent-primary': '#00ff00',
+        '--theme-accent-secondary': '#ffff00',
+        '--theme-accent-tertiary': '#ff0000',
+        '--theme-text-primary': '#00ff00',
+        '--theme-text-secondary': '#008800',
+        '--theme-border': 'rgba(0, 255, 0, 0.5)',
+        '--theme-glow': 'rgba(0, 255, 0, 0.7)',
+        '--font-family': '"Ubuntu Mono", "Consolas", monospace'
       },
-      forest: { 
-        '--background': '120 100% 5%',
-        '--foreground': '120 73% 75%',
-        '--card': '120 100% 5%',
-        '--card-foreground': '120 73% 75%',
-        '--primary': '120 100% 25%',
-        '--primary-foreground': '120 100% 5%',
-        '--secondary': '120 43% 15%',
-        '--secondary-foreground': '120 73% 75%',
-        '--accent': '120 100% 25%',
-        '--accent-foreground': '120 100% 5%',
-        '--border': '120 43% 15%',
-        '--theme-primary': '#32cd32',
-        '--theme-secondary': '#228b22',
-        '--theme-bg': '#0d1b0d',
-        '--theme-text': '#90ee90'
+      tron: {
+        '--theme-bg-primary': '#001122',
+        '--theme-bg-secondary': '#001a33',
+        '--theme-bg-tertiary': '#002244',
+        '--theme-accent-primary': '#00ccff',
+        '--theme-accent-secondary': '#0088cc',
+        '--theme-accent-tertiary': '#ffffff',
+        '--theme-text-primary': '#ffffff',
+        '--theme-text-secondary': '#88ccff',
+        '--theme-border': 'rgba(0, 204, 255, 0.4)',
+        '--theme-glow': 'rgba(0, 204, 255, 0.6)',
+        '--font-family': '"Audiowide", "Orbitron", sans-serif'
       }
     };
 
     const styles = themeStyles[theme];
     
-    // Apply all CSS custom properties
+    // Apply CSS variables
     Object.entries(styles).forEach(([key, value]) => {
       root.style.setProperty(key, value);
     });
 
-    // Apply body styles
-    document.body.style.backgroundColor = styles['--theme-bg'];
-    document.body.style.color = styles['--theme-text'];
-    document.body.style.transition = 'background-color 0.3s ease, color 0.3s ease';
+    // Apply body styles with theme
+    document.body.style.backgroundColor = styles['--theme-bg-primary'];
+    document.body.style.color = styles['--theme-text-primary'];
+    document.body.style.fontFamily = styles['--font-family'];
+    document.body.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
   }, [theme]);
 
-  const toggleTheme = () => {
-    const themes: Theme[] = ['dark', 'light', 'cyberpunk', 'ocean', 'forest'];
+  const cycleTheme = () => {
+    const themes: Theme[] = ['cyberpunk', 'matrix', 'quantum', 'terminal', 'tron'];
     const currentIndex = themes.indexOf(theme);
     const nextIndex = (currentIndex + 1) % themes.length;
     setTheme(themes[nextIndex]);
   };
 
-  return { theme, setTheme, toggleTheme };
+  const getThemeConfig = () => {
+    const configs = {
+      cyberpunk: {
+        name: 'Cyberpunk',
+        icon: '🚀',
+        background: 'bg-gradient-to-br from-black via-purple-900/30 to-black',
+        primary: 'text-cyan-400',
+        secondary: 'text-purple-400',
+        accent: 'border-cyan-400',
+        glow: 'shadow-cyan-400/50'
+      },
+      matrix: {
+        name: 'Matrix',
+        icon: '🔋',
+        background: 'bg-gradient-to-br from-black via-green-900/20 to-black',
+        primary: 'text-green-400',
+        secondary: 'text-green-300',
+        accent: 'border-green-400',
+        glow: 'shadow-green-400/50'
+      },
+      quantum: {
+        name: 'Quantum',
+        icon: '🌌',
+        background: 'bg-gradient-to-br from-gray-900 via-pink-900/20 to-gray-900',
+        primary: 'text-pink-400',
+        secondary: 'text-cyan-300',
+        accent: 'border-pink-400',
+        glow: 'shadow-pink-400/50'
+      },
+      terminal: {
+        name: 'Terminal',
+        icon: '💻',
+        background: 'bg-black',
+        primary: 'text-green-400',
+        secondary: 'text-yellow-400',
+        accent: 'border-green-400',
+        glow: 'shadow-green-400/70'
+      },
+      tron: {
+        name: 'Tron',
+        icon: '⚡',
+        background: 'bg-gradient-to-br from-blue-950 via-blue-900/30 to-black',
+        primary: 'text-blue-400',
+        secondary: 'text-cyan-300',
+        accent: 'border-blue-400',
+        glow: 'shadow-blue-400/60'
+      }
+    };
+    
+    return configs[theme];
+  };
+
+  return { 
+    theme, 
+    setTheme, 
+    cycleTheme, 
+    getThemeConfig 
+  };
 };

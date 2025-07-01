@@ -6,109 +6,92 @@ import AboutSection from '@/components/portfolio/AboutSection';
 import ProjectsSection from '@/components/portfolio/ProjectsSection';
 import ContactSection from '@/components/portfolio/ContactSection';
 import Navigation from '@/components/portfolio/Navigation';
-import ParticleBackground from '@/components/portfolio/ParticleBackground';
+import InteractiveBackground from '@/components/portfolio/InteractiveBackground';
+import ThemeSelector from '@/components/portfolio/ThemeSelector';
 import { useTheme } from '@/hooks/useTheme';
 
 const Index = () => {
   const [mounted, setMounted] = useState(false);
-  const { theme } = useTheme();
+  const { theme, getThemeConfig } = useTheme();
 
   useEffect(() => {
     setMounted(true);
-  }, []);
+    
+    // Load theme-specific fonts
+    const fontLinks = {
+      cyberpunk: 'https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap',
+      matrix: 'https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap',
+      quantum: 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap',
+      terminal: 'https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&display=swap',
+      tron: 'https://fonts.googleapis.com/css2?family=Audiowide&family=Orbitron:wght@400;700&display=swap'
+    };
+
+    // Preload font for current theme
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = fontLinks[theme];
+    document.head.appendChild(link);
+
+    return () => {
+      // Cleanup font link if needed
+      const existingLink = document.querySelector(`link[href="${fontLinks[theme]}"]`);
+      if (existingLink) {
+        document.head.removeChild(existingLink);
+      }
+    };
+  }, [theme]);
 
   const pageVariants = {
     initial: { 
       opacity: 0,
-      scale: 0.95,
-      y: 20
+      scale: 0.98,
+      filter: 'blur(4px)'
     },
     in: { 
       opacity: 1,
       scale: 1,
-      y: 0
+      filter: 'blur(0px)'
     },
     out: { 
       opacity: 0,
-      scale: 1.05,
-      y: -20
+      scale: 1.02,
+      filter: 'blur(4px)'
     }
   };
 
   const pageTransition = {
     type: "tween" as const,
-    ease: [0.23, 1, 0.32, 1] as const,
-    duration: 0.6
-  };
-
-  const getThemeClasses = () => {
-    const baseClasses = "relative min-h-screen transition-all duration-500 overflow-x-hidden";
-    
-    switch (theme) {
-      case 'light':
-        return `${baseClasses} bg-white text-gray-900`;
-      case 'cyberpunk':
-        return `${baseClasses} bg-gradient-to-br from-black via-purple-900/20 to-black text-cyan-100`;
-      case 'ocean':
-        return `${baseClasses} bg-gradient-to-br from-blue-900 via-blue-800/50 to-black text-blue-100`;
-      case 'forest':
-        return `${baseClasses} bg-gradient-to-br from-green-900 via-green-800/50 to-black text-green-100`;
-      default:
-        return `${baseClasses} bg-gradient-to-br from-black via-slate-900 to-black text-gray-100`;
-    }
-  };
-
-  const getAccentColor = () => {
-    switch (theme) {
-      case 'light':
-        return 'rgba(59, 130, 246, 0.3)';
-      case 'cyberpunk':
-        return 'rgba(0, 255, 255, 0.3)';
-      case 'ocean':
-        return 'rgba(0, 191, 255, 0.3)';
-      case 'forest':
-        return 'rgba(50, 205, 50, 0.3)';
-      default:
-        return 'rgba(34, 211, 238, 0.3)';
-    }
-  };
-
-  const getProgressGradient = () => {
-    switch (theme) {
-      case 'cyberpunk':
-        return 'linear-gradient(to right, #00ffff, #ff00ff)';
-      case 'ocean':
-        return 'linear-gradient(to right, #00bfff, #4682b4)';
-      case 'forest':
-        return 'linear-gradient(to right, #32cd32, #228b22)';
-      case 'light':
-        return 'linear-gradient(to right, #3b82f6, #8b5cf6)';
-      default:
-        return 'linear-gradient(to right, #22d3ee, #8b5cf6)';
-    }
+    ease: [0.25, 0.46, 0.45, 0.94] as const,
+    duration: 0.8
   };
 
   if (!mounted) {
     return (
       <div className="min-h-screen bg-black flex items-center justify-center">
         <motion.div
-          animate={{ 
-            rotate: 360,
-            boxShadow: [
-              "0 0 0px rgba(34, 211, 238, 0)",
-              "0 0 20px rgba(34, 211, 238, 0.8)",
-              "0 0 0px rgba(34, 211, 238, 0)"
-            ]
+          className="relative"
+          animate={{
+            scale: [1, 1.1, 1],
+            opacity: [0.5, 1, 0.5]
           }}
-          transition={{ 
-            rotate: { duration: 1, repeat: Infinity, ease: "linear" },
-            boxShadow: { duration: 2, repeat: Infinity }
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeInOut"
           }}
-          className="w-8 h-8 border-2 border-cyan-400 border-t-transparent rounded-full"
-        />
+        >
+          <div className="w-12 h-12 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin" />
+          <motion.div
+            className="absolute inset-0 w-12 h-12 border-2 border-purple-400 border-b-transparent rounded-full"
+            animate={{ rotate: -360 }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+          />
+        </motion.div>
       </div>
     );
   }
+
+  const themeConfig = getThemeConfig();
 
   return (
     <AnimatePresence mode="wait">
@@ -119,16 +102,24 @@ const Index = () => {
         exit="out"
         variants={pageVariants}
         transition={pageTransition}
-        className={getThemeClasses()}
+        className={`
+          relative min-h-screen transition-all duration-700 ease-out overflow-x-hidden
+          ${themeConfig.background}
+        `}
+        style={{
+          fontFamily: 'var(--font-family)',
+          color: 'var(--theme-text-primary)'
+        }}
       >
-        <ParticleBackground />
+        <InteractiveBackground />
+        <ThemeSelector />
         <Navigation />
         
         <main className="relative z-10">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 1, delay: 0.3 }}
           >
             <HeroSection />
             <AboutSection />
@@ -137,34 +128,67 @@ const Index = () => {
           </motion.div>
         </main>
 
-        {/* Scroll Progress Indicator */}
+        {/* Advanced scroll progress indicator */}
         <motion.div
-          className="fixed top-0 left-0 right-0 h-1 origin-left z-50"
-          style={{ 
-            scaleX: 0,
-            background: getProgressGradient()
+          className="fixed top-0 left-0 right-0 h-1 z-50 origin-left"
+          style={{
+            background: `linear-gradient(90deg, var(--theme-accent-primary), var(--theme-accent-secondary), var(--theme-accent-tertiary))`,
+            boxShadow: '0 0 10px var(--theme-glow)'
           }}
+          initial={{ scaleX: 0 }}
           whileInView={{ scaleX: 1 }}
           transition={{ duration: 0.3 }}
         />
 
-        {/* Corner accents */}
+        {/* Futuristic corner brackets */}
+        {[
+          'top-6 left-6 border-l-2 border-t-2',
+          'top-6 right-6 border-r-2 border-t-2',
+          'bottom-6 left-6 border-l-2 border-b-2',
+          'bottom-6 right-6 border-r-2 border-b-2'
+        ].map((position, index) => (
+          <motion.div
+            key={index}
+            className={`fixed w-8 h-8 z-40 ${position}`}
+            style={{
+              borderColor: 'var(--theme-border)',
+              filter: 'drop-shadow(0 0 5px var(--theme-glow))'
+            }}
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 1 + index * 0.1, duration: 0.5 }}
+            whileHover={{ 
+              scale: 1.2,
+              filter: 'drop-shadow(0 0 15px var(--theme-glow))'
+            }}
+          />
+        ))}
+
+        {/* Ambient glow effects */}
         <div 
-          className="fixed top-4 left-4 w-8 h-8 border-l-2 border-t-2 z-40" 
-          style={{ borderColor: getAccentColor() }}
+          className="fixed inset-0 pointer-events-none z-0"
+          style={{
+            background: `radial-gradient(ellipse at center, var(--theme-accent-primary)08 0%, transparent 50%)`
+          }}
         />
-        <div 
-          className="fixed top-4 right-4 w-8 h-8 border-r-2 border-t-2 z-40"
-          style={{ borderColor: getAccentColor() }}
-        />
-        <div 
-          className="fixed bottom-4 left-4 w-8 h-8 border-l-2 border-b-2 z-40"
-          style={{ borderColor: getAccentColor() }}
-        />
-        <div 
-          className="fixed bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 z-40"
-          style={{ borderColor: getAccentColor() }}
-        />
+        
+        {/* Scanline effect for certain themes */}
+        {(theme === 'cyberpunk' || theme === 'terminal') && (
+          <motion.div
+            className="fixed inset-0 pointer-events-none z-10"
+            style={{
+              background: `repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                var(--theme-accent-primary)03 2px,
+                var(--theme-accent-primary)03 4px
+              )`
+            }}
+            animate={{ opacity: [0.1, 0.3, 0.1] }}
+            transition={{ duration: 3, repeat: Infinity }}
+          />
+        )}
       </motion.div>
     </AnimatePresence>
   );
