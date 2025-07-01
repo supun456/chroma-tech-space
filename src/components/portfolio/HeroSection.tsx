@@ -2,22 +2,47 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Download, Github, Linkedin, Mail } from 'lucide-react';
+import { Download, Github, Linkedin, Mail, Mic, Power } from 'lucide-react';
 
 const HeroSection = () => {
   const [text, setText] = useState('');
-  const fullText = "I transform data into actionable strategies.";
+  const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const phrases = [
+    "Initializing SupunAI...",
+    "I transform data into actionable strategies.",
+    "Deploying full-stack solutions.",
+    "Building intelligent UIs.",
+    "Processing complex algorithms...",
+    "Ready for mission deployment."
+  ];
 
   useEffect(() => {
-    if (currentIndex < fullText.length) {
-      const timeout = setTimeout(() => {
-        setText(fullText.slice(0, currentIndex + 1));
-        setCurrentIndex(currentIndex + 1);
-      }, 100);
-      return () => clearTimeout(timeout);
-    }
-  }, [currentIndex, fullText]);
+    const currentPhrase = phrases[currentPhraseIndex];
+    
+    const timeout = setTimeout(() => {
+      if (!isDeleting) {
+        if (currentIndex < currentPhrase.length) {
+          setText(currentPhrase.slice(0, currentIndex + 1));
+          setCurrentIndex(currentIndex + 1);
+        } else {
+          setTimeout(() => setIsDeleting(true), 2000);
+        }
+      } else {
+        if (currentIndex > 0) {
+          setText(currentPhrase.slice(0, currentIndex - 1));
+          setCurrentIndex(currentIndex - 1);
+        } else {
+          setIsDeleting(false);
+          setCurrentPhraseIndex((currentPhraseIndex + 1) % phrases.length);
+        }
+      }
+    }, isDeleting ? 50 : 100);
+
+    return () => clearTimeout(timeout);
+  }, [currentIndex, isDeleting, currentPhraseIndex, phrases]);
 
   const socialLinks = [
     { icon: Github, href: "https://github.com/supun456", label: "GitHub" },
@@ -53,18 +78,48 @@ const HeroSection = () => {
 
   return (
     <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      {/* Jarvis-style grid overlay */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(34,211,238,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(34,211,238,0.1)_1px,transparent_1px)] bg-[size:50px_50px]" />
+      
+      {/* Scanning line effect */}
+      <motion.div
+        className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent"
+        animate={{
+          x: ['-100%', '100%'],
+        }}
+        transition={{
+          duration: 3,
+          repeat: Infinity,
+          repeatDelay: 5,
+          ease: "linear"
+        }}
+      />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
           className="space-y-8"
         >
+          {/* Status indicator */}
+          <motion.div
+            variants={itemVariants}
+            className="flex items-center justify-center gap-3 mb-8"
+          >
+            <motion.div
+              animate={{ scale: [1, 1.2, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              className="w-3 h-3 bg-green-400 rounded-full shadow-[0_0_10px_rgba(34,197,94,0.8)]"
+            />
+            <span className="text-green-400 text-sm font-mono">SYSTEM ONLINE</span>
+          </motion.div>
+
           <motion.h1
             variants={itemVariants}
             whileHover={{ 
               scale: 1.05,
-              textShadow: "0px 0px 8px rgb(34, 211, 238)"
+              textShadow: "0px 0px 20px rgb(34, 211, 238)"
             }}
             className="text-5xl md:text-7xl font-bold cursor-default"
           >
@@ -73,19 +128,30 @@ const HeroSection = () => {
             </span>
           </motion.h1>
 
+          {/* Enhanced terminal-style typing */}
           <motion.div
             variants={itemVariants}
-            className="text-xl md:text-2xl text-gray-300 font-mono"
+            className="relative"
           >
-            <span className="text-green-400">$ </span>
-            <span>{text}</span>
-            <motion.span 
-              animate={{ opacity: [1, 0, 1] }}
-              transition={{ duration: 1, repeat: Infinity }}
-              className="text-cyan-400"
-            >
-              |
-            </motion.span>
+            <div className="bg-black/80 backdrop-blur-sm border border-cyan-500/30 rounded-lg p-4 font-mono text-left max-w-2xl mx-auto">
+              <div className="flex items-center gap-2 mb-2">
+                <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                <span className="text-gray-400 text-sm ml-2">SupunAI Terminal</span>
+              </div>
+              <div className="text-xl md:text-2xl text-green-400">
+                <span className="text-cyan-400">$ </span>
+                <span>{text}</span>
+                <motion.span 
+                  animate={{ opacity: [1, 0, 1] }}
+                  transition={{ duration: 1, repeat: Infinity }}
+                  className="text-cyan-400"
+                >
+                  |
+                </motion.span>
+              </div>
+            </div>
           </motion.div>
 
           <motion.p
@@ -100,13 +166,32 @@ const HeroSection = () => {
             variants={itemVariants}
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
+            {/* Voice Command Button */}
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               <Button
                 size="lg"
-                className="bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-cyan-600 hover:to-purple-700 text-white font-semibold px-8 py-3 rounded-lg shadow-lg hover:shadow-cyan-500/25 transition-all duration-300 transform"
+                className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-semibold px-8 py-3 rounded-lg shadow-lg hover:shadow-green-500/25 transition-all duration-300"
+              >
+                <motion.div
+                  animate={{ scale: [1, 1.2, 1] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
+                  <Mic className="w-5 h-5 mr-2" />
+                </motion.div>
+                Voice Command
+              </Button>
+            </motion.div>
+
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Button
+                size="lg"
+                className="bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-cyan-600 hover:to-purple-700 text-white font-semibold px-8 py-3 rounded-lg shadow-lg hover:shadow-cyan-500/25 transition-all duration-300"
               >
                 <motion.div
                   whileHover={{ rotate: 360 }}
@@ -144,6 +229,17 @@ const HeroSection = () => {
                   <span className="sr-only">{link.label}</span>
                 </motion.a>
               ))}
+            </div>
+          </motion.div>
+
+          {/* AI Assistant Status */}
+          <motion.div
+            variants={itemVariants}
+            className="flex items-center justify-center gap-4 mt-8"
+          >
+            <div className="flex items-center gap-2 px-4 py-2 bg-black/50 backdrop-blur-sm border border-cyan-500/30 rounded-full">
+              <Power className="w-4 h-4 text-green-400" />
+              <span className="text-sm text-gray-300">AI Assistant Ready</span>
             </div>
           </motion.div>
         </motion.div>
