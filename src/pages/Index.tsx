@@ -41,18 +41,20 @@ const Index = () => {
     duration: 0.6
   };
 
-  const getThemeBackground = () => {
+  const getThemeClasses = () => {
+    const baseClasses = "relative min-h-screen transition-all duration-500 overflow-x-hidden";
+    
     switch (theme) {
       case 'light':
-        return 'bg-white text-gray-900';
+        return `${baseClasses} bg-white text-gray-900`;
       case 'cyberpunk':
-        return 'bg-gradient-to-br from-black via-purple-900 to-black text-cyan-100';
+        return `${baseClasses} bg-gradient-to-br from-black via-purple-900/20 to-black text-cyan-100`;
       case 'ocean':
-        return 'bg-gradient-to-br from-blue-900 via-blue-800 to-black text-blue-100';
+        return `${baseClasses} bg-gradient-to-br from-blue-900 via-blue-800/50 to-black text-blue-100`;
       case 'forest':
-        return 'bg-gradient-to-br from-green-900 via-green-800 to-black text-green-100';
+        return `${baseClasses} bg-gradient-to-br from-green-900 via-green-800/50 to-black text-green-100`;
       default:
-        return 'bg-gradient-to-br from-black via-slate-900 to-black text-gray-100';
+        return `${baseClasses} bg-gradient-to-br from-black via-slate-900 to-black text-gray-100`;
     }
   };
 
@@ -68,6 +70,21 @@ const Index = () => {
         return 'rgba(50, 205, 50, 0.3)';
       default:
         return 'rgba(34, 211, 238, 0.3)';
+    }
+  };
+
+  const getProgressGradient = () => {
+    switch (theme) {
+      case 'cyberpunk':
+        return 'linear-gradient(to right, #00ffff, #ff00ff)';
+      case 'ocean':
+        return 'linear-gradient(to right, #00bfff, #4682b4)';
+      case 'forest':
+        return 'linear-gradient(to right, #32cd32, #228b22)';
+      case 'light':
+        return 'linear-gradient(to right, #3b82f6, #8b5cf6)';
+      default:
+        return 'linear-gradient(to right, #22d3ee, #8b5cf6)';
     }
   };
 
@@ -96,13 +113,13 @@ const Index = () => {
   return (
     <AnimatePresence mode="wait">
       <motion.div
-        key="portfolio"
+        key={`portfolio-${theme}`}
         initial="initial"
         animate="in"
         exit="out"
         variants={pageVariants}
         transition={pageTransition}
-        className={`relative min-h-screen transition-colors duration-500 overflow-x-hidden ${getThemeBackground()}`}
+        className={getThemeClasses()}
       >
         <ParticleBackground />
         <Navigation />
@@ -122,14 +139,10 @@ const Index = () => {
 
         {/* Scroll Progress Indicator */}
         <motion.div
-          className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-500 to-purple-600 origin-left z-50"
+          className="fixed top-0 left-0 right-0 h-1 origin-left z-50"
           style={{ 
             scaleX: 0,
-            background: theme === 'cyberpunk' ? 'linear-gradient(to right, #00ffff, #ff00ff)' :
-                       theme === 'ocean' ? 'linear-gradient(to right, #00bfff, #4682b4)' :
-                       theme === 'forest' ? 'linear-gradient(to right, #32cd32, #228b22)' :
-                       theme === 'light' ? 'linear-gradient(to right, #3b82f6, #8b5cf6)' :
-                       'linear-gradient(to right, #22d3ee, #8b5cf6)'
+            background: getProgressGradient()
           }}
           whileInView={{ scaleX: 1 }}
           transition={{ duration: 0.3 }}
